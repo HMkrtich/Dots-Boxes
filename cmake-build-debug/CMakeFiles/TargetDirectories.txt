@@ -1,0 +1,3 @@
+/Users/mkrtichhovsepyan/Desktop/C++/Dots/cmake-build-debug/CMakeFiles/Dots.dir
+/Users/mkrtichhovsepyan/Desktop/C++/Dots/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mkrtichhovsepyan/Desktop/C++/Dots/cmake-build-debug/CMakeFiles/rebuild_cache.dir
