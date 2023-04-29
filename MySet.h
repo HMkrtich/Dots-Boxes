@@ -23,14 +23,11 @@ public:
     }
 
     void add(coordinate coord){
-        std::cout<<this->set.size()<<std::endl;
         for(value i = 0; i < set.size(); i++){
-            std::cout<<i<<std::endl;
             if(this->set[i].x == coord.x && this->set[i].y == coord.y && this->set[i].z == coord.z){
                 return;
             }
         }
-        std::cout<<7<<std::endl;
         this->set.push_back(coord);
         this->size++;
     }

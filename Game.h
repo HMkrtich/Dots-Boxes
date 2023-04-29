@@ -275,26 +275,20 @@ public:
         value arr[board.getWidth()*board.getHeight()];
         for(value i = 0; i < board.getWidth(); i++){
             for(value j = 0; j < board.getHeight(); j++){
-                std::cout<<i*board.getHeight() + j<<std::endl;
                 arr[i*board.getHeight() + j] = board.getBoardSquares()[i][j].getPlayer();
             }
         }
         auto bitSet = get_bitset();
         for(value i = 0; i < moves.size(); i++) {
             if (bitSet[i] == 0) {
-//                coordinate move = moves[i];
-                std::cout<<1<<std::endl;
                 auto tuple = update(arr, bitSet, board.getWidth()*board.getHeight(),i, 2);
                 auto newArr = std::get<0>(tuple);
-                std::cout<<2<<std::endl;
                 value score = minimax(bitSet, newArr, 2, true, -1000, 1000);
-                std::cout<<7<<std::endl;
                 if (score < bestScore) {
                     bestScore = score;
                     bestMove = i;
                 }
                 found = true;
-                std::cout<<3<<std::endl;
             }
         }
         if (!found) {
@@ -304,14 +298,10 @@ public:
         return bestMove;
     }
     value minimax(std::bitset<12> bitSet,value *arr, value depth, bool isMaximizing, value alpha, value beta, bool show = false){
-
         bool found = false;
         value bestScore;
 //
         if(depth == 0){
-//            recursion_count++;
-//            std::cout<<recursion_count<<std::endl;
-//            std::cout<<evaluate(arr, board.getWidth()*board.getHeight())<<std::endl;
             return evaluate(arr, board.getWidth()*board.getHeight());
         }
 
@@ -331,13 +321,8 @@ public:
                         score = minimax(bitSet, newArr, depth-1, true, alpha, beta,show);
                     } else {
                         score = minimax(bitSet, newArr, depth-1, false, alpha, beta,show);
-                        std::cout<<"barev"<<std::endl;
                     }
-
-                    std::cout<<71<<std::endl;
                     bitSet[i] = false;
-
-                    std::cout<<4<<std::endl;
                     bestScore = std::max(score, bestScore);
                     alpha = std::max(alpha, bestScore);
                     if(beta <= alpha){
@@ -355,34 +340,32 @@ public:
                     auto tuple = update(arr, bitSet,board.getWidth()*board.getHeight(),i,2);
                     auto newArr = std::get<0>(tuple);
                     bool changed = std::get<1>(tuple);
-                    std::cout<<changed<<"------"<<std::endl;
                     value score;
                     if (changed) {
                         score = minimax(bitSet,newArr, depth-1, false, alpha, beta,show);
+
                     } else {
                         score = minimax(bitSet,newArr, depth-1, true, alpha, beta,show);
                     }
-                    std::cout<<72<<std::endl;
                     bitSet[i] = false;
-
                     bestScore = std::min(score, bestScore);
                     beta = std::min(beta, bestScore);
                     if(beta <= alpha){
                         break;
                     }
+
                 }
             }
         }
-        std::cout<<5<<std::endl;
         if(found) {
-            std::cout << 6 <<" "<<bestScore<< std::endl;
-            std::cout<<bitSet<<std::endl;
-            for(value i = 0; i < board.getWidth(); i++){
-                for(value j = 0; j < board.getHeight(); j++){
-                    std::cout<<arr[i*board.getHeight() + j]<<" ";
-                }
-                std::cout<<std::endl;
-            }
+//            for(value i = 0; i < board.getWidth(); i++){
+//                for(value j = 0; j < board.getHeight(); j++){
+//                    std::cout<<arr[i*board.getHeight() + j]<<" ";
+//                }
+//                std::cout<<std::endl;
+//            }
+//            std::cout<<"Best score: "<<bestScore<<std::endl;
+
             return bestScore;
         }
         else {
