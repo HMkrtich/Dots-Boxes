@@ -4,7 +4,6 @@
 #include <iostream>
 #include "Box.h"
 #include "Board.h"
-#include "Line.h"
 Board::Board() {
     this->width = 4;
     this->height = 4;
@@ -26,7 +25,7 @@ Board::Board() {
             moves.add(bottom_line);
             moves.add(left_line);
             moves.add(right_line);
-            this->board_squares[i][j] = Box(top_line, bottom_line, left_line, right_line, -1);
+            this->board_squares[i][j] = Box(top_line, bottom_line, left_line, right_line, 3);
         }
     }
 }
@@ -40,12 +39,10 @@ Board::Board(const value width,const value height)  {
     assert (width > 0 && height > 0);
 //    Creating 2 dimensional Box array
     this->board_squares = new Box*[this->width];
-//    Creating 3 dimensioal Line array
-    value size = std::max(this->width, this->height) + 1;
 
-    for (value i = 0; i < this->width; i++) {
-        this->board_squares[i] = new Box[this->height];
-        for(value j = 0; j < this->height; j++) {
+    for (value i = 0; i < this->height; i++) {
+        this->board_squares[i] = new Box[this->width];
+        for(value j = 0; j < this->width; j++) {
             coordinate top_line = coordinate(0, i, j);
             coordinate bottom_line = coordinate(0, i + 1, j);
             coordinate left_line = coordinate(1, j, i);
@@ -55,7 +52,7 @@ Board::Board(const value width,const value height)  {
             this->moves.add(left_line);
             this->moves.add(right_line);
 
-            this->board_squares[i][j] = Box(top_line, bottom_line, left_line, right_line, -1);
+            this->board_squares[i][j] = Box(top_line, bottom_line, left_line, right_line, 3);
         }
     }
     for(value i = 0; i < this->moves.getSize(); i++) {
@@ -71,8 +68,3 @@ value Board::getWidth() {
 value Board::getHeight() {
     return this->height;
 }
-
-
-
-
-

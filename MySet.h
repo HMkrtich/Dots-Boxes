@@ -5,9 +5,22 @@
 #ifndef DOTS_MYSET_H
 #define DOTS_MYSET_H
 #include <iostream>
-#include "Line.h"
 #include <vector>
-
+using value = int;
+struct coordinate {
+    coordinate() = default;
+    coordinate(value x, value y, value z, bool status = false): x(x), y(y), z(z), status(status){};
+    value x;
+    value y;
+    value z;
+    bool status = false;
+    bool getStatus(){
+        return this->status;
+    }
+    void setStatus(){
+        this->status = true;
+    }
+};
 class MySet {
 private:
     value size;
@@ -43,14 +56,11 @@ public:
     constexpr value getSize() const{
         return this->size;
     }
-    bool isEmpty(){
+    bool isEmpty() const{
         return this->size == 0;
     }
     std::vector<coordinate> &getSet(){
         return this->set;
     }
-
-
-
 };
 #endif //DOTS_MYSET_H

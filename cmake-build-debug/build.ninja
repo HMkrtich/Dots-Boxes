@@ -52,12 +52,6 @@ build CMakeFiles/Dots.dir/main.cpp.o: CXX_COMPILER__Dots_Debug /Users/mkrtichhov
   OBJECT_DIR = CMakeFiles/Dots.dir
   OBJECT_FILE_DIR = CMakeFiles/Dots.dir
 
-build CMakeFiles/Dots.dir/Line.cpp.o: CXX_COMPILER__Dots_Debug /Users/mkrtichhovsepyan/Desktop/C++/Dots/Line.cpp || cmake_object_order_depends_target_Dots
-  DEP_FILE = CMakeFiles/Dots.dir/Line.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2 -std=gnu++20
-  OBJECT_DIR = CMakeFiles/Dots.dir
-  OBJECT_FILE_DIR = CMakeFiles/Dots.dir
-
 build CMakeFiles/Dots.dir/Box.cpp.o: CXX_COMPILER__Dots_Debug /Users/mkrtichhovsepyan/Desktop/C++/Dots/Box.cpp || cmake_object_order_depends_target_Dots
   DEP_FILE = CMakeFiles/Dots.dir/Box.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2 -std=gnu++20
@@ -78,7 +72,7 @@ build CMakeFiles/Dots.dir/Board.cpp.o: CXX_COMPILER__Dots_Debug /Users/mkrtichho
 #############################################
 # Link the executable Dots
 
-build Dots: CXX_EXECUTABLE_LINKER__Dots_Debug CMakeFiles/Dots.dir/main.cpp.o CMakeFiles/Dots.dir/Line.cpp.o CMakeFiles/Dots.dir/Box.cpp.o CMakeFiles/Dots.dir/Board.cpp.o
+build Dots: CXX_EXECUTABLE_LINKER__Dots_Debug CMakeFiles/Dots.dir/main.cpp.o CMakeFiles/Dots.dir/Box.cpp.o CMakeFiles/Dots.dir/Board.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2
   OBJECT_DIR = CMakeFiles/Dots.dir
   POST_BUILD = :

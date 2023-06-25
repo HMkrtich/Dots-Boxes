@@ -7,10 +7,10 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include "Line.h"
 #include "Box.h"
 #include "MySet.h"
 #include <map>
+
 
 
 // Board class
@@ -54,11 +54,11 @@ public:
     value getWidth();
 
     value getHeight();
-    void player1Score(){
-        player1_score++;
+    void player1Score(value changed = 1){
+        player1_score += changed;
     }
-    void player2Score(){
-        player2_score++;
+    void player2Score(value changed = 1){
+        player2_score += changed;
     }
     value getPlayer1Score(){
         return player1_score;
@@ -66,7 +66,7 @@ public:
     value getPlayer2Score(){
         return player2_score;
     }
-    bool fullBoard(){
+    bool fullBoard() const{
         if(player1_score + player2_score == width * height){
             return true;
         }
@@ -75,15 +75,9 @@ public:
     Box **getBoardSquares(){
         return board_squares;
     }
-
-
-    MySet get_moves(){
+    MySet& getMoves(){
         return this->moves;
     }
-    void delete_move(value x, value y, value z){
-        this->moves.remove(coordinate(x, y, z));
-    }
-
     bool getRightLineStatus(value x, value y){
         for(value i = 0; i < this->moves.getSize(); i++){
             if(this->moves.getSet()[i].x == 1 && this->moves.getSet()[i].y == y+1 && this->moves.getSet()[i].z == x){
@@ -116,7 +110,6 @@ public:
         for(value i = 0; i < this->moves.getSize(); i++){
             if(this->moves.getSet()[i].x == 1 && this->moves.getSet()[i].y == y+1 && this->moves.getSet()[i].z == x){
                 this->moves.getSet()[i].setStatus();
-//                this->delete_move(1, y+1, x);
                 return;
             }
         }
@@ -125,7 +118,6 @@ public:
         for(value i = 0; i < this->moves.getSize(); i++){
             if(this->moves.getSet()[i].x == 0 && this->moves.getSet()[i].y == x+1 && this->moves.getSet()[i].z == y){
                 this->moves.getSet()[i].setStatus();
-//                this->delete_move(0, x+1, y);
                 return;
             }
         }
@@ -134,7 +126,6 @@ public:
         for(value i = 0; i < this->moves.getSize(); i++){
             if(this->moves.getSet()[i].x == 1 && this->moves.getSet()[i].y == y && this->moves.getSet()[i].z == x){
                 this->moves.getSet()[i].setStatus();
-//                this->delete_move(1, y, x);
                 return;
             }
         }
@@ -143,12 +134,10 @@ public:
         for(value i = 0; i < this->moves.getSize(); i++){
             if(this->moves.getSet()[i].x == 0 && this->moves.getSet()[i].y == x && this->moves.getSet()[i].z == y){
                 this->moves.getSet()[i].setStatus();
-//                this->delete_move(0, x, y);
                 return;
             }
         }
     }
-
     void setLineStatus(value i, value player){
         this->moves.getSet()[i].setStatus();
         auto line_coord = this->moves.getSet()[i];
@@ -162,6 +151,8 @@ public:
             }
             if(this->getRightLineStatus(x-1, y) && this->getTopLineStatus(x-1, y) && this->getLeftLineStatus(x-1, y)){
                 this->newSquare = true;
+                std::cout<<"New Square"<<std::endl;
+
                 this->board_squares[x-1][y].setPlayer(player);
             }
         }
@@ -174,22 +165,12 @@ public:
             }
             if(this->getBottomLineStatus(x, y) && this->getRightLineStatus(x, y) && this->getTopLineStatus(x, y)){
                 this->newSquare = true;
-//                std::cout<<13<<std::endl;
                 this->board_squares[x][y].setPlayer(player);
-//                std::cout<<14<<std::endl;
             }
         }
-//        std::cout<<33<<std::endl;
-//        this->delete_move(line_coord.x, line_coord.y, line_coord.z);
     }
-    bool getNewSquare(){
-        return this->newSquare;
-    }
-    void setNewSquare(bool new_square){
-        this->newSquare = new_square;
-    }
-
-    void show_board(){
+//    Show board
+    void showBoard(){
 //        print x axis
         std::cout<<"    ";
 
@@ -218,7 +199,7 @@ public:
                 else {
                     std::cout << "I ";
                 }
-                if(this->board_squares[i][j].getPlayer() == -1)
+                if(this->board_squares[i][j].getPlayer() == 3)
                     std::cout << "   ";
                 else {
                     std::cout <<" "<< this->board_squares[i][j].getPlayer() << " ";
@@ -234,7 +215,6 @@ public:
             std::cout << std::endl;
             if(i == this->width - 1){
                 std::cout<<"    ";
-
                 for (value j = 0; j < this->height; j++) {
                     if (!this->getBottomLineStatus(i, j))
                         std::cout << "*-  -";
